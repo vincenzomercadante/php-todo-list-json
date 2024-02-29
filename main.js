@@ -37,6 +37,42 @@ const app = createApp({
           this.tasks = res.data;
         });
     },
+
+    taskCompleted(index) {
+      const status = this.tasks[index].status == "todo" ? "done" : "todo";
+      const item = { i: index, value: status };
+
+      const data = { item };
+      const params = { headers: { "Content-Type": "multipart/form-data" } };
+
+      axios
+        .post(
+          "http://localhost/php-todo-list-json/backend/api/change_task_status.php",
+          data,
+          params
+        )
+        .then((res) => {
+          this.tasks[index] = res.data;
+        });
+    },
+
+    taskDeleted(index) {
+      const status = this.tasks[index].status == "deleted";
+      const item = { i: index, value: status };
+
+      const data = { item };
+      const params = { headers: { "Content-Type": "multipart/form-data" } };
+
+      axios
+        .post(
+          "http://localhost/php-todo-list-json/backend/api/delete_task.php",
+          data,
+          params
+        )
+        .then((res) => {
+          this.tasks[index] = res.data;
+        });
+    },
   },
 
   mounted() {
