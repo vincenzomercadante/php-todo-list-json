@@ -57,21 +57,38 @@ const app = createApp({
     },
 
     taskDeleted(index) {
-      const status = (this.tasks[index].status = "deleted");
-      const item = { i: index, value: status };
+      if (this.tasks[index].status == "deleted") {
+        const item = { i: index };
 
-      const data = { item };
-      const params = { headers: { "Content-Type": "multipart/form-data" } };
+        const data = { item };
+        const params = { headers: { "Content-Type": "multipart/form-data" } };
 
-      axios
-        .post(
-          "http://localhost/php-todo-list-json/backend/api/delete_task.php",
-          data,
-          params
-        )
-        .then((res) => {
-          this.tasks[index] = res.data;
-        });
+        axios
+          .post(
+            "http://localhost/php-todo-list-json/backend/api/delete_task.php",
+            data,
+            params
+          )
+          .then((res) => {
+            this.tasks = res.data;
+          });
+      } else {
+        const status = (this.tasks[index].status = "deleted");
+        const item = { i: index, value: status };
+
+        const data = { item };
+        const params = { headers: { "Content-Type": "multipart/form-data" } };
+
+        axios
+          .post(
+            "http://localhost/php-todo-list-json/backend/api/delete_task.php",
+            data,
+            params
+          )
+          .then((res) => {
+            this.tasks[index] = res.data;
+          });
+      }
     },
   },
 
