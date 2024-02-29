@@ -21,7 +21,9 @@ const app = createApp({
     },
 
     saveTask() {
-      const item = this.newTask;
+      const item = { ...this.newTask };
+
+      this.newTask.text = "";
 
       const data = { item };
 
