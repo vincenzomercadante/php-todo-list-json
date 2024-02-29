@@ -57,7 +57,7 @@ const app = createApp({
     },
 
     taskDeleted(index) {
-      const status = this.tasks[index].status == "deleted";
+      const status = (this.tasks[index].status = "deleted");
       const item = { i: index, value: status };
 
       const data = { item };
