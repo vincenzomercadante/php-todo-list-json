@@ -19,6 +19,24 @@ const app = createApp({
           this.tasks = res.data;
         });
     },
+
+    saveTask() {
+      const item = this.newTask;
+
+      const data = { item };
+
+      axios
+        .post(
+          "http://localhost/php-todo-list-json/backend/api/add_task.php",
+          data,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        )
+        .then((res) => {
+          this.tasks = res.data;
+        });
+    },
   },
 
   mounted() {

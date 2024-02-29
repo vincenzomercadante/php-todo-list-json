@@ -1,18 +1,1 @@
-[
-  {
-    "text": "Vai a comprare i giornali",
-    "status": "todo"
-  },
-  {
-    "text": "Fai il bucato",
-    "status": "todo"
-  },
-  {
-    "text": "Studiare Vue.js",
-    "status": "todo"
-  },
-  {
-    "text": "Portare fuori il cane",
-    "status": "todo"
-  }
-]
+[{"text":"Vai a comprare i giornali","status":"todo"},{"text":"Fai il bucato","status":"todo"},{"text":"Studiare Vue.js","status":"todo"},{"text":"Portare fuori il cane","status":"todo"},{"text":"c","status":"todo"}]
