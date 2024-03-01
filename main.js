@@ -8,18 +8,28 @@ const app = createApp({
         text: "",
         status: "todo",
       },
+
+      filterValue: "",
     };
   },
 
   methods: {
+    /**
+     *
+     * Method that fetch the task list from the database (json)
+     *
+     */
     fetchList() {
-      axios
-        .get("http://localhost/php-todo-list-json/backend/api/get_list.php")
-        .then((res) => {
-          this.tasks = res.data;
-        });
+      axios.get("./backend/api/get_list.php").then((res) => {
+        this.tasks = res.data;
+      });
     },
 
+    /**
+     *
+     * Save a new Task on the database
+     *
+     */
     saveTask() {
       const item = { ...this.newTask };
 
@@ -28,18 +38,19 @@ const app = createApp({
       const data = { item };
 
       axios
-        .post(
-          "http://localhost/php-todo-list-json/backend/api/add_task.php",
-          data,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        )
+        .post("./backend/api/add_task.php", data, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
         .then((res) => {
           this.tasks = res.data;
         });
     },
 
+    /**
+     * Change the task staus from an index
+     *
+     * @param {number} index value that define the task th euser will modified
+     */
     taskCompleted(index) {
       const status = this.tasks[index].status == "todo" ? "done" : "todo";
       const item = { i: index, value: status };
@@ -48,16 +59,18 @@ const app = createApp({
       const params = { headers: { "Content-Type": "multipart/form-data" } };
 
       axios
-        .post(
-          "http://localhost/php-todo-list-json/backend/api/change_task_status.php",
-          data,
-          params
-        )
+        .post("./backend/api/change_task_status.php", data, params)
         .then((res) => {
           this.tasks[index] = res.data;
         });
     },
 
+    /**
+     *
+     * Delete the selected task from the database
+     *
+     * @param {number} index value that define the task i will delete
+     */
     taskDeleted(index) {
       if (this.tasks[index].status == "deleted") {
         const item = { i: index };
@@ -66,11 +79,7 @@ const app = createApp({
         const params = { headers: { "Content-Type": "multipart/form-data" } };
 
         axios
-          .post(
-            "http://localhost/php-todo-list-json/backend/api/delete_task.php",
-            data,
-            params
-          )
+          .post("./backend/api/delete_task.php", data, params)
           .then((res) => {
             this.tasks = res.data;
           });
@@ -82,15 +91,30 @@ const app = createApp({
         const params = { headers: { "Content-Type": "multipart/form-data" } };
 
         axios
-          .post(
-            "http://localhost/php-todo-list-json/backend/api/delete_task.php",
-            data,
-            params
-          )
+          .post("./backend/api/delete_task.php", data, params)
           .then((res) => {
             this.tasks[index] = res.data;
           });
       }
+    },
+
+    /**
+     * Filter the task from a value typed by the user
+     *
+     * @param {string} the value that will filter my array
+     */
+    filterArray() {
+      const item = this.filterValue;
+
+      this.filterValue = "";
+
+      const data = { item };
+
+      const params = { headers: { "Content-Type": "multipart/form-data" } };
+
+      axios.post("./backend/api/filter-array.php", data, params).then((res) => {
+        this.tasks = res.data;
+      });
     },
   },
 

@@ -56,6 +56,22 @@
               <i class="fa-solid fa-floppy-disk"></i> Save Task
             </button>
           </div>
+
+          <!-- filter area -->
+          <div class="col-6 text-center">
+            <h2 class="display-4 text-warning mb-3">Search a specific task</h2>
+            <input
+              type="text"
+              name=""
+              class="form-control d-inline-block"
+              placeholder="Type a filter value"
+              v-model.trim="filterValue"
+              @keyUp.enter="filterArray()"
+            />
+            <button class="btn btn-warning mt-3" @click="filterArray()">
+              <i class="fa-solid fa-magnifying-glass"></i> Filter Array
+            </button>
+          </div>
         </div>
 
         <!-- tasks row -->
