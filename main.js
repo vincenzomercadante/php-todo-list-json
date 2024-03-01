@@ -16,7 +16,7 @@ const app = createApp({
   methods: {
     /**
      *
-     * Method that fetch the task list from the database (json)
+     * fetch the task list from the database (json)
      *
      */
     fetchList() {
@@ -100,8 +100,6 @@ const app = createApp({
 
     /**
      * Filter the task from a value typed by the user
-     *
-     * @param {string} the value that will filter my array
      */
     filterArray() {
       const item = this.filterValue;
@@ -114,6 +112,24 @@ const app = createApp({
 
       axios.post("./backend/api/filter-array.php", data, params).then((res) => {
         this.tasks = res.data;
+      });
+    },
+
+    /**
+     * restore task from delete status
+     *
+     * @param {number} @index value that define the task i will restore
+     *
+     */
+    taskRestored(index) {
+      const status = "todo";
+      const item = { i: index, value: status };
+
+      const data = { item };
+      const params = { headers: { "Content-Type": "multipart/form-data" } };
+
+      axios.post("./backend/api/restore-task.php", data, params).then((res) => {
+        this.tasks[index] = res.data;
       });
     },
   },
