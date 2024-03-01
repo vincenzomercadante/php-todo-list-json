@@ -6,7 +6,7 @@ $string = file_get_contents("../data.json", true);
 $tasks_list = json_decode($string, true);
 
 $user_request = $_POST['item'];
-$task_index = $user_request['i'];
+$task_index = (int) $user_request['i'];
 $new_status = $user_request['value'];
 
 

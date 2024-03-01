@@ -2,7 +2,7 @@
 
 header('Content-Type: application/json');
 $user_request = $_POST['item'];
-$task_index = $user_request['i'];
+$task_index = (int) $user_request['i'];
 
 
 $string = file_get_contents("../data.json", true);
